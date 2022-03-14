@@ -15,6 +15,17 @@ namespace BankingAPPConsole_Erick_Villegas
             Console.WriteLine("6. Exit");
             Accounts account1 = new Accounts();
             #endregion
+            bool continueBanking = true;
+
+            while (continueBanking) {
+                int selection = Convert.ToInt32(Console.ReadLine());
+                switch(selection) {
+                    case 1:
+                        //Console.WriteLine("Current Balance " + AccountBalance);
+                        break;
+                }
+            }
+            
 
 
 
