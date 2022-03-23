@@ -7,7 +7,7 @@ namespace BankingAPPConsole_Erick_Villegas
         static void Main(string[] args)
         {   Accounts accChangesMade = new Accounts();
             bool continueBanking = true;
-            int balance = 0;
+            double balance = 0;
             Console.WriteLine("Welcome to your Banking App.");
             Console.WriteLine("Please select from one of the options below to begin.");
             while (continueBanking) { 
@@ -101,7 +101,7 @@ namespace BankingAPPConsole_Erick_Villegas
                             Console.WriteLine("Please enter the amount you want to Deposit.");
                             double deposit_amount = Convert.ToInt32(Console.ReadLine());
                             double temp_balance = (accChangesMade.p_accBalance);
-                            temp_balance = temp_balance - deposit_amount;
+                            temp_balance = temp_balance + deposit_amount;
                             Console.WriteLine(deposit_amount + " has been deposited into your Checkings account");
                             Console.WriteLine("Your current balance is " + temp_balance);
                             Console.WriteLine(accChangesMade.Deposit(deposit_amount));
@@ -110,7 +110,7 @@ namespace BankingAPPConsole_Erick_Villegas
                             Console.WriteLine("Please enter the amount you want to Deposit.");
                             double deposit_amount = Convert.ToInt32(Console.ReadLine());
                             double temp_balance = (accChangesMade.p_accBalance);
-                            temp_balance = temp_balance - deposit_amount;
+                            temp_balance = temp_balance + deposit_amount;
                             Console.WriteLine(deposit_amount + " has been deposited into your Savings account");
                             Console.WriteLine("Your current balance is " + temp_balance);
                             Console.WriteLine(accChangesMade.Deposit(deposit_amount));
@@ -124,6 +124,7 @@ namespace BankingAPPConsole_Erick_Villegas
                         break;    
                     case 6:
                         continueBanking = false;
+                        Console.WriteLine("Thank you for using your Banking App.");
                         break;
                     default:
                         Console.WriteLine("Please select an option from options 1 through 6 to begin banking.");
