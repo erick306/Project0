@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Erick Villegas\\OneDrive\\Desktop\\training_sessions\\Project0\\BankingAPPConsole_Erick_Villegas\\BankingAPPConsole_Erick_Villegas.csproj": {}
+    "C:\\Users\\Erick Villegas\\OneDrive\\Desktop\\training_sessions\\Projects\\Project0\\BankingAPPConsole_Erick_Villegas\\BankingAPPConsole_Erick_Villegas.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Erick Villegas\\OneDrive\\Desktop\\training_sessions\\Project0\\BankingAPPConsole_Erick_Villegas\\BankingAPPConsole_Erick_Villegas.csproj": {
+    "C:\\Users\\Erick Villegas\\OneDrive\\Desktop\\training_sessions\\Projects\\Project0\\BankingAPPConsole_Erick_Villegas\\BankingAPPConsole_Erick_Villegas.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Erick Villegas\\OneDrive\\Desktop\\training_sessions\\Project0\\BankingAPPConsole_Erick_Villegas\\BankingAPPConsole_Erick_Villegas.csproj",
+        "projectUniqueName": "C:\\Users\\Erick Villegas\\OneDrive\\Desktop\\training_sessions\\Projects\\Project0\\BankingAPPConsole_Erick_Villegas\\BankingAPPConsole_Erick_Villegas.csproj",
         "projectName": "BankingAPPConsole_Erick_Villegas",
-        "projectPath": "C:\\Users\\Erick Villegas\\OneDrive\\Desktop\\training_sessions\\Project0\\BankingAPPConsole_Erick_Villegas\\BankingAPPConsole_Erick_Villegas.csproj",
+        "projectPath": "C:\\Users\\Erick Villegas\\OneDrive\\Desktop\\training_sessions\\Projects\\Project0\\BankingAPPConsole_Erick_Villegas\\BankingAPPConsole_Erick_Villegas.csproj",
         "packagesPath": "C:\\Users\\Erick Villegas\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Erick Villegas\\OneDrive\\Desktop\\training_sessions\\Project0\\BankingAPPConsole_Erick_Villegas\\obj\\",
+        "outputPath": "C:\\Users\\Erick Villegas\\OneDrive\\Desktop\\training_sessions\\Projects\\Project0\\BankingAPPConsole_Erick_Villegas\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Erick Villegas\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -37,6 +37,12 @@
       "frameworks": {
         "net5.0": {
           "targetAlias": "net5.0",
+          "dependencies": {
+            "System.Data.SqlClient": {
+              "target": "Package",
+              "version": "[4.8.3, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",
@@ -52,7 +58,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.405\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.406\\RuntimeIdentifierGraph.json"
         }
       }
     }
