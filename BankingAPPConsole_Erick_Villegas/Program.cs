@@ -76,23 +76,24 @@ namespace BankingAPPConsole_Erick_Villegas
                         if (accountSelection == "Checkings") {
                             Console.WriteLine("Please enter the amount you want to withdraw.");
                             int withdrawal_amount = Convert.ToInt32(Console.ReadLine());
-                            int temp_balance = accChangesMade.p_accBalance;
-                            temp_balance = temp_balance - withdrawal_amount;
+                            //int temp_balance = accChangesMade.p_accBalance;
+                            //temp_balance = temp_balance - withdrawal_amount;
                             Console.WriteLine(withdrawal_amount + " has been withdrawn from your Checkings account");
-                            Console.WriteLine("Your current balance is " + temp_balance);
+                            //Console.WriteLine("Your current balance is " + temp_balance);
                         }
                         else if (accountSelection == "Savings") {
                             Console.WriteLine("Please enter the amount you want to withdraw.");
                             int withdrawal_amount = Convert.ToInt32(Console.ReadLine());
-                            int temp_balance = accChangesMade.p_accBalance;
-                            temp_balance = temp_balance - withdrawal_amount;
+                            //int temp_balance = accChangesMade.p_accBalance;
+                            //temp_balance = temp_balance - withdrawal_amount;
                             Console.WriteLine(withdrawal_amount + " has been withdrawn from your Savings account");
-                            Console.WriteLine("Your current balance is " + temp_balance);
+                            //Console.WriteLine("Your current balance is " + temp_balance);
 
                             //Accounts updateCheck = accChangesMade.Withdraw();
                             //Console.WriteLine("Checkings Account Balance: "+ CheckWithdraw.p_accBalance);
                         }
                         break;
+                        
 
                 }
             }

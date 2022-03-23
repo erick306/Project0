@@ -78,18 +78,18 @@ namespace BankingAPPConsole_Erick_Villegas
             }
             return "Changes made successfully";
         }
-        public Accounts CheckingsBalance(int ChBalance)
+        public Accounts CheckingsBalance(string p_accType)
         {
             Accounts Check = new Accounts();
             SqlCommand cmd_BalanceCheck = new SqlCommand("select p_accBalance from APP_Variables where p_accType = @p_accType",con);
-            cmd_BalanceCheck.Parameters.AddWithValue("@p_accType",ChBalance);
+            cmd_BalanceCheck.Parameters.AddWithValue("@p_accType",Check.p_accType);
             SqlDataReader _read = null;
             try
             {
                 con.Open();
                 _read = cmd_BalanceCheck.ExecuteReader();
                 if (_read.Read()){
-                    Check.p_accType = Convert.ToString(ChBalance);
+                    Check.p_accType = Convert.ToString(p_accType);
 
                     return Check;
                 }
@@ -123,7 +123,7 @@ namespace BankingAPPConsole_Erick_Villegas
             {
                 con.Close();
             }
-            return "Withdraw Complete";
+            return CkeckWithdraw;
             //p_accBalance = p_accBalance - withdraw_qty;
             //return p_accBalance;
         }   
