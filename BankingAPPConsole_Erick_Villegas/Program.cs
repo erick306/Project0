@@ -7,7 +7,7 @@ namespace BankingAPPConsole_Erick_Villegas
         static void Main(string[] args)
         {   Accounts accChangesMade = new Accounts();
             bool continueBanking = true;
-            double balance = 0;
+            float balance = 0;
             Console.WriteLine("Welcome to your Banking App.");
             Console.WriteLine("Please select from one of the options below to begin.");
             while (continueBanking) { 
