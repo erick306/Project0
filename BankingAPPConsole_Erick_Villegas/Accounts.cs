@@ -52,7 +52,7 @@ namespace BankingAPPConsole_Erick_Villegas
         }
         #endregion
             #region Methods
-        SqlConnection con = new SqlConnection(@"server=DESKTOP-9UJOUBT\Erick Villegas;database=BankingAPPConsole;integrated security=true");
+        SqlConnection con = new SqlConnection(@"server=DESKTOP-9UJOUBT;database=BankingAPPConsole;integrated security=true");
         public string AccountChanges(Accounts accChanges)
         {
             SqlCommand cmd_changeAccount = new SqlCommand("insert into APP_Variables values(@p_accName,@p_accType,@p_accBalalnce,@p_isAccountActive,@p_accEmail",con);
