@@ -55,8 +55,8 @@ namespace BankingAPPConsole_Erick_Villegas
         SqlConnection con = new SqlConnection(@"server=DESKTOP-9UJOUBT\Erick Villegas;database=BankingAPPConsole;integrated security=true");
         public string AccountChanges(Accounts accChanges)
         {
-            SqlCommand cmd_changeAccount = new SqlCommand("insert into APP_Variables values(@p_accNo,@p_accName,@p_accType,@p_accBalalnce,@p_isAccountActive,@p_accEmail",con);
-            cmd_changeAccount.Parameters.AddWithValue("@p_accNo",accChanges.p_accNo);
+            SqlCommand cmd_changeAccount = new SqlCommand("insert into APP_Variables values(@p_accName,@p_accType,@p_accBalalnce,@p_isAccountActive,@p_accEmail",con);
+            //cmd_changeAccount.Parameters.AddWithValue("@p_accNo",accChanges.p_accNo);
             cmd_changeAccount.Parameters.AddWithValue("@p_accName",accChanges.p_accName);
             cmd_changeAccount.Parameters.AddWithValue("@p_accType",accChanges.p_accType);
             cmd_changeAccount.Parameters.AddWithValue("@p_accBalance",accChanges.p_accBalance);
@@ -78,33 +78,35 @@ namespace BankingAPPConsole_Erick_Villegas
             }
             return "Changes made successfully";
         }
-        public Accounts CheckingsBalance(string p_accType)
+        public Accounts CheckingsBalance(string Type)
         {
             Accounts Check = new Accounts();
             SqlCommand cmd_BalanceCheck = new SqlCommand("select p_accBalance from APP_Variables where p_accType = @p_accType",con);
-            cmd_BalanceCheck.Parameters.AddWithValue("@p_accType",Check.p_accType);
+            cmd_BalanceCheck.Parameters.AddWithValue("@p_accType",Type);
             SqlDataReader _read = null;
             try
             {
                 con.Open();
                 _read = cmd_BalanceCheck.ExecuteReader();
-                if (_read.Read()){
-                    Check.p_accType = Convert.ToString(p_accType);
+                if (_read.Read())
+                {
+                    Check.p_accType = Convert.ToString(_read[3]);
 
                     return Check;
                 }
             }
-            catch(SqlException ex)
+            catch(System.Exception es)
             {
-                System.Console.WriteLine(ex.Message);
+                System.Console.WriteLine(es.Message);
             }
             finally
             {
+                _read.Close();
                 con.Close();
             }
-            return Check;
+        return Check;
         }
-        public Accounts Withdraw(int withdraw_qty)
+        public Accounts Withdraw(double withdraw_qty)
         {
             Accounts CkeckWithdraw = new Accounts();
             p_accBalance = p_accBalance - withdraw_qty;
@@ -124,28 +126,47 @@ namespace BankingAPPConsole_Erick_Villegas
                 con.Close();
             }
             return CkeckWithdraw;
-            //p_accBalance = p_accBalance - withdraw_qty;
-            //return p_accBalance;
         }   
-        public double Deposit(int deposit_qty)
+        public Accounts Deposit(double deposit_qty)
         {
-            p_accBalance = p_accBalance + deposit_qty;
-            return p_accBalance;
+            Accounts CkeckDeposit = new Accounts();
+            p_accBalance = p_accBalance - deposit_qty;
+            SqlCommand cmd_updateBalance = new SqlCommand("update App_Variables set p_accBalance = @newp_accBalance where p_accType = @p_accType",con);
+            cmd_updateBalance.Parameters.AddWithValue("@newp_accBalance",p_accBalance);
+             try
+            {
+                con.Open();
+                cmd_updateBalance.ExecuteNonQuery();
+            }
+            catch(SqlException ex)
+            {
+                System.Console.WriteLine(ex.Message);
+            }
+            finally
+            {
+                con.Close();
+            }
+            return CkeckDeposit;
         }
-        public void AccountDetails()
+        public string cancelAcc(string id)
         {
-            Console.WriteLine("Account No: " + p_accNo);
-            Console.WriteLine("Name: " + p_accName);
-            Console.WriteLine("Type: " + p_accType);
-            Console.WriteLine("Balance: " + p_accBalance);
-            Console.WriteLine("Active: " + p_isAccountActive);
-            Console.WriteLine("Email: " + p_accEmail);
-        }
-        
-        /*public string AdjustBalance(Accounts accChanges);
-            SqlCommand cmd_AdjBalance = new SqlCommand("update Account Balance set p_accBalance = @newP_accBalance, where p_accNo = @p_accNo",con);
-            cmd_AdjBalance.AddWithValue("@newP_accBalance",accChanges.p_accBalance);
-            */
+            SqlCommand cmd_cancelAccount = new SqlCommand("delete from APP_Variable where p_accNo=@p_accType",con);
+            cmd_cancelAccount.Parameters.AddWithValue("@p_accType",id);
+            try
+            {
+                con.Open();
+                cmd_cancelAccount.ExecuteNonQuery();
+            }
+            catch (System.Exception es)
+            {
+                Console.WriteLine(es.Message);
+            }
+            finally
+            {
+                con.Close();
+            }
+            return "Account Cancelled";
+        }   
         #endregion
     }
 }
