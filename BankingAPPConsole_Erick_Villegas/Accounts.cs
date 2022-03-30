@@ -55,7 +55,7 @@ namespace BankingAPPConsole_Erick_Villegas
         SqlConnection con = new SqlConnection(@"server=DESKTOP-9UJOUBT;database=BankingAPPConsole;integrated security=true");
         public string AccountChanges(Accounts accChanges)
         {
-            SqlCommand cmd_changeAccount = new SqlCommand("insert into APP_Variables values(@p_accName,@p_accType,@p_accBalalnce,@p_isAccountActive,@p_accEmail",con);
+            SqlCommand cmd_changeAccount = new SqlCommand("insert into APP_Variables values(@p_accName,@p_accType,@p_accBalance,@p_isAccountActive,@p_accEmail)",con);
             //cmd_changeAccount.Parameters.AddWithValue("@p_accNo",accChanges.p_accNo);
             cmd_changeAccount.Parameters.AddWithValue("@p_accName",accChanges.p_accName);
             cmd_changeAccount.Parameters.AddWithValue("@p_accType",accChanges.p_accType);
@@ -78,11 +78,11 @@ namespace BankingAPPConsole_Erick_Villegas
             }
             return "Changes made successfully";
         }
-        public Accounts CheckingsBalance(string Type)
+        public Accounts CheckingsBalance(int accId)
         {
             Accounts Check = new Accounts();
-            SqlCommand cmd_BalanceCheck = new SqlCommand("select p_accBalance from APP_Variables where p_accType = @p_accType",con);
-            cmd_BalanceCheck.Parameters.AddWithValue("@p_accType",Type);
+            SqlCommand cmd_BalanceCheck = new SqlCommand("select * from APP_Variables where p_accNo = @p_accNo",con);
+            cmd_BalanceCheck.Parameters.AddWithValue("@p_accNo",accId);
             SqlDataReader _read = null;
             try
             {
@@ -90,7 +90,8 @@ namespace BankingAPPConsole_Erick_Villegas
                 _read = cmd_BalanceCheck.ExecuteReader();
                 if (_read.Read())
                 {
-                    Check.p_accType = Convert.ToString(_read[3]);
+                    Check.p_accType = Convert.ToString(_read[2]);
+                    Check.p_accBalance = Convert.ToInt32(_read[3]);
 
                     return Check;
                 }
@@ -106,12 +107,14 @@ namespace BankingAPPConsole_Erick_Villegas
             }
         return Check;
         }
-        public Accounts Withdraw(double withdraw_qty)
+        public Accounts Withdraw(double withdraw_qty,int id)
         {
             Accounts CkeckWithdraw = new Accounts();
             p_accBalance = p_accBalance - withdraw_qty;
-            SqlCommand cmd_updateBalance = new SqlCommand("update App_Variables set p_accBalance = @newp_accBalance where p_accType = @p_accType",con);
+            SqlCommand cmd_updateBalance = new SqlCommand("update App_Variables set p_accBalance = @newp_accBalance where p_accNo = @p_accNo",con);
             cmd_updateBalance.Parameters.AddWithValue("@newp_accBalance",p_accBalance);
+            cmd_updateBalance.Parameters.AddWithValue("@p_accNo",id);
+           
              try
             {
                 con.Open();
@@ -127,12 +130,13 @@ namespace BankingAPPConsole_Erick_Villegas
             }
             return CkeckWithdraw;
         }   
-        public Accounts Deposit(double deposit_qty)
+        public Accounts Deposit(double deposit_qty,int id)
         {
             Accounts CkeckDeposit = new Accounts();
-            p_accBalance = p_accBalance - deposit_qty;
-            SqlCommand cmd_updateBalance = new SqlCommand("update App_Variables set p_accBalance = @newp_accBalance where p_accType = @p_accType",con);
+            p_accBalance = p_accBalance + deposit_qty;
+            SqlCommand cmd_updateBalance = new SqlCommand("update App_Variables set p_accBalance = @newp_accBalance where p_accNo = @p_accNo",con);
             cmd_updateBalance.Parameters.AddWithValue("@newp_accBalance",p_accBalance);
+            cmd_updateBalance.Parameters.AddWithValue("@p_accNo",id);
              try
             {
                 con.Open();
@@ -150,8 +154,8 @@ namespace BankingAPPConsole_Erick_Villegas
         }
         public string cancelAcc(string id)
         {
-            SqlCommand cmd_cancelAccount = new SqlCommand("delete from APP_Variable where p_accNo=@p_accType",con);
-            cmd_cancelAccount.Parameters.AddWithValue("@p_accType",id);
+            SqlCommand cmd_cancelAccount = new SqlCommand("delete from APP_Variables where p_accNo=@p_accNo",con);
+            cmd_cancelAccount.Parameters.AddWithValue("@p_accNo",id);
             try
             {
                 con.Open();

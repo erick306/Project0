@@ -54,71 +54,63 @@ namespace BankingAPPConsole_Erick_Villegas
                         Console.WriteLine(accChangesMade.AccountChanges(accChanges));
                         break;
                     case 2:
-                        Console.WriteLine("Please specify the account type for which you would like to see the balance.");
-                        bool checkBalance = true;
-                        string balanceSelection = null;
-                        Console.WriteLine("|Checkings| |Savings|");
-                        while (checkBalance)
-                        balanceSelection = Console.ReadLine();
-                        if (balanceSelection == "Checkings") {
-                            Accounts Check = accChangesMade.CheckingsBalance(balanceSelection);
-                            Console.WriteLine("Checkings Account Balance: " + Check.p_accBalance);
-                        }else if (balanceSelection == "Savings") {
-                            Accounts Check = accChangesMade.CheckingsBalance(balanceSelection);
-                            Console.WriteLine("Savings Account Balance " + Check.p_accBalance);
+                        Console.WriteLine("Please specify the account number for the account which you would like to see the balance.");
+                        int accNoSelection = Convert.ToInt32(Console.ReadLine());
+                        Accounts acc = accChangesMade.CheckingsBalance(accNoSelection);
+                        if (acc.p_accType == "Checkings") {
+                            Console.WriteLine("Checkings Account Balance: " + acc.p_accBalance);
+                        }else if (acc.p_accType == "Savings") {
+                            Console.WriteLine("Savings Account Balance " + acc.p_accBalance);
                         }
                         break;
                     case 3:
                         Console.WriteLine("Please select the account you would like to withdraw from.");
-                        Console.WriteLine("|Checkings| |Savings|");
-                        string accountSelection = null;
-                        accountSelection = Console.ReadLine();
-                        if (accountSelection == "Checkings") {
+                        int searchId = Convert.ToInt32(Console.ReadLine());;
+                        Accounts accwithdraw = accChangesMade.CheckingsBalance(searchId); 
+                        if (accwithdraw.p_accType == "Checkings") {
                             Console.WriteLine("Please enter the amount you want to withdraw.");
-                            double withdrawal_amount = Convert.ToInt32(Console.ReadLine());
-                            double temp_balance = (accChangesMade.p_accBalance);
+                            double withdrawal_amount = Convert.ToDouble(Console.ReadLine());
+                            double temp_balance = accwithdraw.p_accBalance;
                             temp_balance = temp_balance - withdrawal_amount;
                             Console.WriteLine(withdrawal_amount + " has been withdrawn from your Checkings account");
                             Console.WriteLine("Your current balance is " + temp_balance);
-                            Console.WriteLine(accChangesMade.Withdraw(withdrawal_amount));
+                            Console.WriteLine(accwithdraw.Withdraw(withdrawal_amount,searchId));
                         }
-                        else if (accountSelection == "Savings") {
+                        else if (accwithdraw.p_accType == "Savings") {
                             Console.WriteLine("Please enter the amount you want to withdraw.");
-                            double withdrawal_amount = Convert.ToInt32(Console.ReadLine());
-                            double temp_balance = (accChangesMade.p_accBalance);
+                            double withdrawal_amount = Convert.ToDouble(Console.ReadLine());
+                            double temp_balance = accwithdraw.p_accBalance;
                             temp_balance = temp_balance - withdrawal_amount;
                             Console.WriteLine(withdrawal_amount + " has been withdrawn from your Savings account");
                             Console.WriteLine("Your current balance is " + temp_balance);
-                            Console.WriteLine(accChangesMade.Withdraw(withdrawal_amount));
+                            Console.WriteLine(accwithdraw.Withdraw(withdrawal_amount,searchId));
                         }
                         break;
                     case 4:
                         Console.WriteLine("Please select the account you would like to deposit into.");
-                        Console.WriteLine("|Checkings| |Savings|");
-                        //string accountSelection = null;
-                        accountSelection = Console.ReadLine();
-                        if (accountSelection == "Checkings") {
-                            Console.WriteLine("Please enter the amount you want to Deposit.");
-                            double deposit_amount = Convert.ToInt32(Console.ReadLine());
-                            double temp_balance = (accChangesMade.p_accBalance);
+                        int searchId2 = Convert.ToInt32(Console.ReadLine());
+                        Accounts accdeposit = accChangesMade.CheckingsBalance(searchId2);
+                        if (accdeposit.p_accType == "Checkings") {
+                            Console.WriteLine("Please enter the amount you want to deposit.");
+                            double deposit_amount = Convert.ToDouble(Console.ReadLine());
+                            double temp_balance = accdeposit.p_accBalance;
                             temp_balance = temp_balance + deposit_amount;
                             Console.WriteLine(deposit_amount + " has been deposited into your Checkings account");
                             Console.WriteLine("Your current balance is " + temp_balance);
-                            Console.WriteLine(accChangesMade.Deposit(deposit_amount));
+                            Console.WriteLine(accdeposit.Deposit(deposit_amount,searchId2));
                         }
-                        else if (accountSelection == "Savings") {
+                        else if (accdeposit.p_accType == "Savings") {
                             Console.WriteLine("Please enter the amount you want to Deposit.");
-                            double deposit_amount = Convert.ToInt32(Console.ReadLine());
-                            double temp_balance = (accChangesMade.p_accBalance);
+                            double deposit_amount = Convert.ToDouble(Console.ReadLine());
+                            double temp_balance = accdeposit.p_accBalance;
                             temp_balance = temp_balance + deposit_amount;
                             Console.WriteLine(deposit_amount + " has been deposited into your Savings account");
                             Console.WriteLine("Your current balance is " + temp_balance);
-                            Console.WriteLine(accChangesMade.Deposit(deposit_amount));
+                            Console.WriteLine(accdeposit.Deposit(deposit_amount,searchId2));
                         }
                         break;
                     case 5:
-                        Console.WriteLine("Please enter the type of the account you would like to cancel.");
-                        Console.WriteLine("|Checkings|  |Savings|");
+                        Console.WriteLine("Please enter the account number of the account you would like to cancel.");
                         string pid = Console.ReadLine();
                         Console.WriteLine(accChangesMade.cancelAcc(pid));
                         break;    
